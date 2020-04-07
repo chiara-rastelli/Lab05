@@ -5,13 +5,13 @@ import java.util.List;
 public class TestModel {
 
 	public static void main(String[] args) {
-		Model mod = new Model() ;
 		
-		List<String> ana_dog = mod.anagrammi("mamma") ;
-		System.out.println(ana_dog) ;
+		Model modello = new Model() ;
 		
-		//List<String> ana_vac = mod.anagrammi("vacanze") ;
-		//System.out.println(ana_vac) ;
-
+		List<String> anagrammiMamma = modello.anagrammi("mamma") ;
+		System.out.println("Gli algoritmi della parola 'mamma' sono:\n");
+		for (int i = 0; i<anagrammiMamma.size(); i++) {
+			System.out.println(anagrammiMamma.get(i));
+			}
 	}
 }

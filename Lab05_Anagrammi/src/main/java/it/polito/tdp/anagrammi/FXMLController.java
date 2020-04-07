@@ -16,7 +16,6 @@ import javafx.scene.control.TextField;
 public class FXMLController {
 
 	private Model model;
-	private ParoleDAO paroleDao = new ParoleDAO();
 	
 	public void setModel(Model m) {
     	this.model = m;
@@ -46,13 +45,16 @@ public class FXMLController {
     @FXML
     void doCercaAnagrammi(ActionEvent event) {
     	String daCercare = this.txtInput.toString();
-    	List<String> listaAnagrammi = new LinkedList<String>();
-    	listaAnagrammi = model.anagrammi(daCercare);
+    	List<String> listaAnagrammi = model.anagrammi(daCercare);
     	for (String s: listaAnagrammi) {
     	//	this.txtAnagrammiCorretti.appendText(s+"\n");
+    		
+    		// al posto che restituire la lista degli anagrammi sulla scena, che appunto si bloccava
+    		// ho provato a vedere se stampandola su console il problema persistesse, ed in effetti
+    		// l'interfaccia grafica continua a "bloccarsi" lo stesso
+    		
     		System.out.println(s+"\n");
     	}
-  
     }
 
     @FXML
