@@ -1,9 +1,15 @@
 package it.polito.tdp.anagrammi.model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import it.polito.tdp.anagrammi.DAO.ParoleDAO;
+
 public class Model {
+	
+	ParoleDAO dbParole = new ParoleDAO();
+	List<String> dizionario = this.dbParole.getTutteLeParole();
 	
 	private List<String> soluzione ;
 
@@ -24,7 +30,7 @@ public class Model {
 		}
 		
 		cerca("", 0, lettereRimanenti) ; 
-		
+		System.out.println(soluzione);
 		return this.soluzione ;
 	}
 	
@@ -57,4 +63,39 @@ public class Model {
 			//su ogni prova invoco di nuovo l'algoritmo ricorsivo, poi chiudo il for
 			cerca(prova, livello+1, rimanenti);}
 		}
+	/**
+	 * ritorna true se la parola passata come parametro (daCercare) e' presente nel dizionario, false altrimenti
+	 * @param daCercare
+	 * @return
+	 */
+	public boolean contenutaNelDizionario(String daCercare) {
+		
+		for(String s: this.dizionario)
+			if (s.compareTo(daCercare)==0)
+				return true;
+		return false;
+	}
+	
+	/**
+	 * ritorna una lista contenente le sole parole corrette (presenti nel dizionario)
+	 * a partire da una lista di stringhe passata come parametro
+	 * @param daVerificare
+	 * @return
+	 */
+	public List<String> paroleCorrette(List<String> daVerificare){
+		List<String> corrette = new LinkedList<String>();
+		for (String s : daVerificare)
+			if (this.contenutaNelDizionario(s)==true)
+				corrette.add(s);
+		return corrette;
+	}
+	
+	public List<String> paroleErrate(List<String> daVerificare){
+		List<String> errate = new LinkedList<String>();
+		for (String s : daVerificare)
+			if (!this.contenutaNelDizionario(s)==true)
+				errate.add(s);
+		return errate;
+	}
+	
 }

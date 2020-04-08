@@ -44,17 +44,22 @@ public class FXMLController {
 
     @FXML
     void doCercaAnagrammi(ActionEvent event) {
-    	String daCercare = this.txtInput.toString();
+    //	System.out.println(this.txtInput.getText());
+    	String daCercare = this.txtInput.getText();
+    	System.out.println("Anagrammi parola "+daCercare+":\n");
     	List<String> listaAnagrammi = model.anagrammi(daCercare);
-    	for (String s: listaAnagrammi) {
-    	//	this.txtAnagrammiCorretti.appendText(s+"\n");
-    		
-    		// al posto che restituire la lista degli anagrammi sulla scena, che appunto si bloccava
-    		// ho provato a vedere se stampandola su console il problema persistesse, ed in effetti
-    		// l'interfaccia grafica continua a "bloccarsi" lo stesso
-    		
-    		System.out.println(s+"\n");
+    	
+    	List<String> anagrammiCorretti = model.paroleCorrette(listaAnagrammi);
+    	List<String> anagrammiErrati = model.paroleErrate(listaAnagrammi);
+    	
+    	for (String s: anagrammiCorretti) {
+    		this.txtAnagrammiCorretti.appendText(s+"\n");
     	}
+    	
+    	for (String s: anagrammiErrati) {
+    		this.txtAnagrammiErrati.appendText(s+"\n");
+    	}
+    	
     }
 
     @FXML
